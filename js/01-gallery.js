@@ -5,7 +5,7 @@ const imgsGallery = createImgsGallery(galleryItems);
 
 galleryContainer.insertAdjacentHTML("beforeend", imgsGallery);
 
-galleryContainer.addEventListener("click", instance);
+galleryContainer.addEventListener("click", onClickHandler);
 
 function createImgsGallery(galleryItems) {
     return galleryItems
@@ -26,9 +26,15 @@ function createImgsGallery(galleryItems) {
         .join("");
 }
 
-const instance = basicLightbox.create(`
-		<img src = ${e.target.dataset.source}>`,
-    e.preventDefault(),
+function onClickHandler(e) {
+    e.preventDefault()
+  const closeModal = e => {
+  if (e.code === "Escape") {
+    instance.close();
+  }};
+
+  const instance = basicLightbox.create(`
+    <img src = ${e.target.dataset.source}>`,
     {
       onShow: instance => {
         window.addEventListener('keydown', closeModal);
@@ -37,10 +43,6 @@ const instance = basicLightbox.create(`
         window.removeEventListener('keydown', closeModal);
       },
     }
-).show();
-
-const closeModal = e => {
-  if (e.code === "Escape") {
-    instance.close();
-  }
-};
+  )
+    instance.show();
+}

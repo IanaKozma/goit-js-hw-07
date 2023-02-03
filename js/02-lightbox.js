@@ -5,8 +5,6 @@ const imgsGallery = createImgsGallery(galleryItems);
 
 galleryContainer.insertAdjacentHTML("beforeend", imgsGallery);
 
-galleryContainer.addEventListener("click", onClickHandler);
-
 function createImgsGallery(galleryItems) {
     return galleryItems
         .map(({ preview, original, description }) => {
@@ -23,12 +21,8 @@ function createImgsGallery(galleryItems) {
         .join("");
 }
 
-function onClickHandler(e) {
-    e.preventDefault();
-
     const lightbox = new SimpleLightbox('.gallery a', {
         captionsData: 'alt',
         captionDelay: 250,
         scrollZoomFactor: false,
     });
-}
